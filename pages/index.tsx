@@ -1,18 +1,19 @@
 import { GetStaticProps } from 'next'
 import CardPokemon from '../components/CardPokemon'
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr/index.js'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Section from '../components/Section'
 import MainLayout from '../layouts/MainLayout'
 
-type pokemonProps = {
+type PokemonProps = {
   name: string
+  url: string
 }
 
 type Props = {
   next: string
   previous: string
-  pokemon: pokemonProps
+  pokemon: PokemonProps[]
 }
 const PokemonMainPage = ({ next, previous, pokemon }: Props) => {
   const [pokemons, setPokemons] = useState(pokemon)
@@ -30,11 +31,11 @@ const PokemonMainPage = ({ next, previous, pokemon }: Props) => {
     setOffset(isNextPage ? offset + 20 : offset - 20)
   }
 
-  console.log(prevPage)
+  console.log(pokemons)
   return (
     <MainLayout title="Pokedex" description="principal home screen pokedex">
       <Section>
-        {pokemons.map((pokemon: any, index: number) => {
+        {pokemons.map((pokemon: PokemonProps, index: number) => {
           const pokemonIndex = index + 1
           return (
             <CardPokemon

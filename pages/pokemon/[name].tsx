@@ -1,3 +1,4 @@
+import { GetServerSideProps } from 'next'
 import { HiOutlineStar, HiStar } from 'react-icons/hi/index.js'
 import PokemonDescription from '../../components/pokemon/PokemonDescription'
 import { Context } from '../../provider/Provider'
@@ -19,6 +20,7 @@ type Stats = {
   }
 }
 type Types = {
+  slot: number
   type: {
     name: string
   }
@@ -30,7 +32,7 @@ type Sprites = {
   front_shiny: string
 }
 type Props = {
-  abilities: Abilities
+  abilities: Abilities[]
   height: number
   weight: number
   id: number
@@ -52,9 +54,9 @@ const PokemonDisplay = ({
 }: Props) => {
   const pokemonIndex = ('00' + id).slice(-3)
   const getImg = `https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${pokemonIndex}.png`
-  const [state, dispatch] = useContext(Context)
+  const [state, dispatch] = useContext<any>(Context)
   const [isMounted, setIsMounted] = useState(false)
-  const [favoritePokemon, setFavoritePokemon] = useState()
+  const [favoritePokemon, setFavoritePokemon] = useState<any>()
   const addFavorite = (
     name: string,
     id: number,
@@ -70,7 +72,7 @@ const PokemonDisplay = ({
   useEffect(() => {
     localStorage.setItem('pokemon', JSON.stringify(state))
     if (state) {
-      const filteredPokemon = state.find(pokemon => pokemon.id === id)
+      const filteredPokemon = state.find((pokemon: any) => pokemon.id === id)
       setFavoritePokemon(filteredPokemon)
     }
   }, [state, id])
@@ -90,11 +92,17 @@ const PokemonDisplay = ({
               ability={abilities}
               type={types}
             />
-            <div className="w-full h-full">
-              <Image width={500} height={500} alt={name} src={getImg} />
+            <div className="w-full h-full sm:px-0 px-20">
+              <Image
+                width={500}
+                height={500}
+                layout="responsive"
+                alt={name}
+                src={getImg}
+              />
             </div>
             <div>
-              {stats.map(({ base_stat, stat }) => {
+              {stats.map(({ base_stat, stat }: Stats) => {
                 return (
                   <PokemonStats
                     key={stat.name}
@@ -120,10 +128,30 @@ const PokemonDisplay = ({
               />
             )}
 
-            <Image width={100} height={100} src={back_default} />
-            <Image width={100} height={100} src={back_shiny} />
-            <Image width={100} height={100} src={front_default} />
-            <Image width={100} height={100} src={front_shiny} />
+            <Image
+              width={100}
+              height={100}
+              src={back_default}
+              alt="pokemon_sprite_back"
+            />
+            <Image
+              width={100}
+              height={100}
+              src={back_shiny}
+              alt="pokemon_sprite_shiny"
+            />
+            <Image
+              width={100}
+              height={100}
+              src={front_default}
+              alt="pokemon_sprite_front_default"
+            />
+            <Image
+              width={100}
+              height={100}
+              src={front_shiny}
+              alt="pokemon_sprite_front_shiny"
+            />
           </div>
         </div>
       </MainLayout>

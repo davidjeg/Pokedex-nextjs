@@ -1,4 +1,4 @@
-import { convertTypeColor, checkTypeIcon } from '../../utils/convertPokemon'
+import { checkTypeIcon } from '../../utils/convertPokemon'
 
 type Types = {
   slot: number
@@ -6,7 +6,7 @@ type Types = {
     name: string
   }
 }
-type Abilities = {
+type Ability = {
   slot: number
   ability: {
     name: string
@@ -16,13 +16,13 @@ type Props = {
   id: string
   height: number
   weight: number
-  ability: Abilities
+  ability: Ability[]
   type: Types[]
 }
 const PokemonDescription = ({ id, height, weight, ability, type }: Props) => {
   const convertHeight = (n: number) => {
     const cm = (n / 100) * 10
-    const convertMToFeetAndInch = (n: number) => {
+    const convertMToFeetAndInch = (n: any) => {
       const feets = n * 3.28
       return feets
     }
@@ -60,13 +60,13 @@ const PokemonDescription = ({ id, height, weight, ability, type }: Props) => {
         <tr>
           <td className="py-4 pr-4">Ability</td>
           <td className="flex gap-1 flex-wrap p-4">
-            {ability.map(ability => {
+            {ability.map((item: any) => {
               return (
                 <span
                   className="dark:bg-zinc-800 bg-indigo-100 rounded-sm px-2 py-1 uppercase"
-                  key={ability.slot}
+                  key={item.slot}
                 >
-                  {ability.ability.name}
+                  {item.ability.name}
                 </span>
               )
             })}

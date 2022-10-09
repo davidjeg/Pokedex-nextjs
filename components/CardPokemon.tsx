@@ -4,11 +4,14 @@ import Link from 'next/link'
 import Image from 'next/image'
 type Props = {
   name: string
-  number: string
+  number: number | string
 }
 const CardPokemon = ({ name, number }: Props) => {
   const [type, setTypes] = useState<any>([])
-  const convertNumber = ('00' + number).slice(-3)
+  const convertNumber = ('000' + number).slice(-3)
+  console.log(number)
+
+  console.log(convertNumber.length)
 
   useEffect(() => {
     const fetchData = async (name: string) => {
