@@ -23,7 +23,7 @@ const CardPokemon = ({ name, number }: Props) => {
     <Link href={`/pokemon/${name}`}>
       <div className="dark:bg-zinc-800 rounded-sm shadow-lg text-center p-3 cursor-pointer relative hover:scale-110 transition-all duration-300 block">
         <div className="inline-flex absolute right-1 flex-col gap-3 ">
-          {type.types?.map(item => {
+          {type?.types?.map(item => {
             return (
               <div
                 id={`${checkTypeIcon(item.type.name)}`}
