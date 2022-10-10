@@ -1,14 +1,14 @@
 import { PokemonReducer } from '../reducers/PokemonReducer'
-import { createContext, useMemo, useReducer, useState } from 'react'
+import { createContext, useMemo, useReducer } from 'react'
 
-export const Context = createContext([])
+export const Context = createContext<any>([])
 
 type Props = {
   children: React.ReactNode
 }
 const init = () => {
   if (typeof window !== 'undefined') {
-    const item = JSON.parse(localStorage.getItem('pokemon'))
+    const item = JSON.parse(localStorage.getItem('pokemon') || '[]')
     return item || []
   }
 }
