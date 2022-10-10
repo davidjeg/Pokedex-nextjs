@@ -7,7 +7,7 @@ const Navbar = () => {
       <div className="max-w-4xl mx-auto ">
         <nav className="flex justify-between items-center">
           <div className="inline-flex gap-4 p-2">
-            <Link href="/">Pokemon</Link>
+            <Link href="/">Pokedex</Link>
             <Link href="/favorites">Favorites</Link>
             <SearchComponent />
           </div>

@@ -21,7 +21,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     var lowerCaseNamePokemon: any = context.query.name
   }
 
-  const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=1154`)
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=905`)
   const { results } = await response.json()
 
   const pokemonsFiltered = results.filter((pokemon: any) => {
